@@ -16,7 +16,8 @@ class App extends Component {
       answerOptions: [],
       answer: '',
       answersCount: {},
-      result: ''
+      result: '',
+      pf: ''
     };
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
@@ -112,9 +113,13 @@ class App extends Component {
     return count.toString();
   }
 
+
   setResults(result) {
-    if (result <= 5) {
-      this.setState({ result: result });
+    if (result >= 3) {
+      this.setState({ result: result, pf: 'passed the exam! Thank you.'});
+    }
+    else if (result < 3) {
+      this.setState({ result: result, pf: 'failed the exam! Please give the test again until you pass the test.'});
     }
     else {
       this.setState({ result: 'Undetermined' });
@@ -135,7 +140,7 @@ class App extends Component {
   }
 
   renderResult() {
-    return <Result quizResult={this.state.result} />;
+    return <Result quizResult={this.state.result}  pfresult={this.state.pf}/>;
   }
 
   render() {
